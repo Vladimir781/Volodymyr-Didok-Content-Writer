@@ -10,25 +10,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. SETTINGS & VARIABLES --- */
+        /* --- 1. PREMIUM VARIABLES --- */
         :root {
             --bg-body: #050505;       
             --bg-card: rgba(255, 255, 255, 0.02);
             --bg-card-hover: rgba(255, 255, 255, 0.04);
             --text-main: #a1a1aa;     
             --text-head: #ffffff;     
-            --accent: #38bdf8;        
+            --accent: #38bdf8; /* Sky Blue */       
             --border: #27272a;
-            --sidebar-width: 40%;
+            
+            /* Ширина фото 45% */
+            --sidebar-width: 45%; 
+            
             --font-main: 'Inter', sans-serif;
         }
 
-        /* Сброс стилей и настройки рендеринга */
+        /* RESET & BASE */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-body);
@@ -39,32 +40,27 @@
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased; /* Делает шрифты тонкими и четкими (MacOS style) */
-            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
 
-        /* Кастомный скроллбар (чтобы не было уродливой серой полосы) */
+        /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-        /* Цвет выделения текста */
-        ::selection {
-            background: rgba(56, 189, 248, 0.3); /* Цвет акцента */
-            color: #fff;
-        }
+        /* SELECTION COLOR */
+        ::selection { background: rgba(56, 189, 248, 0.3); color: #fff; }
 
-        /* --- 2. LAYOUT: SIDEBAR (PHOTO) --- */
+        /* --- 2. SIDEBAR (PHOTO) --- */
         .sidebar {
             width: var(--sidebar-width); 
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #000;
+            background-color: #000; /* Чистый черный */
             z-index: 10;
             overflow: hidden;
             border-right: 1px solid #111;
@@ -75,33 +71,45 @@
             height: 100%;
             object-fit: cover;
             object-position: center top;
-            opacity: 0.8; 
-            filter: grayscale(100%) contrast(115%);
-            transition: transform 1.5s ease, filter 0.5s ease, opacity 0.5s;
+            
+            /* ВОЗВРАЩАЕМ TEMNY STYLE (Noir Mode) */
+            /* Ч/Б + Контраст + Затемнение */
+            filter: grayscale(100%) contrast(120%) brightness(75%);
+            
+            transition: transform 1.5s ease, filter 0.8s ease;
         }
 
+        /* При наведении - легкий цвет, но все равно сдержанно */
         .sidebar:hover .sidebar-img {
             transform: scale(1.03);
-            filter: grayscale(0%) contrast(105%);
-            opacity: 1;
+            filter: grayscale(20%) contrast(110%) brightness(90%);
+        }
+
+        /* Виньетка (градиент) снизу */
+        .sidebar::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, #000000, transparent);
+            pointer-events: none;
         }
 
         .sidebar-content {
             position: absolute;
-            bottom: 60px;
+            bottom: 50px;
             left: 50px;
             z-index: 20;
-            max-width: 85%;
+            max-width: 90%;
         }
 
         .my-name {
-            font-size: 3.5rem; 
+            font-size: 3.8rem; 
             font-weight: 800;
             color: #fff;
             line-height: 1;
-            letter-spacing: -1.5px;
+            letter-spacing: -2px;
             margin-bottom: 15px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
 
         .my-role {
@@ -110,122 +118,112 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
-            background: rgba(0,0,0,0.7);
-            padding: 6px 12px;
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.8);
+            padding: 8px 16px;
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
             display: inline-block;
-            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- 3. LAYOUT: MAIN CONTENT --- */
+        /* --- 3. MAIN CONTENT --- */
         .main-content {
             width: calc(100% - var(--sidebar-width));
             margin-left: var(--sidebar-width);
-            padding: 120px 8%; /* Используем % для отступов, чтобы контент дышал на любых экранах */
+            padding: 100px 6%; 
             background-color: var(--bg-body);
             display: flex;
             flex-direction: column;
-            gap: 120px;
+            gap: 100px;
         }
 
-        /* --- 4. HERO SECTION (FIXED WIDTH ISSUE) --- */
+        /* --- 4. HERO SECTION --- */
         .hero-text {
-            font-size: 2rem; /* Крупный, уверенный шрифт */
+            font-size: 2rem;
             font-weight: 300;
             color: #f4f4f5;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             line-height: 1.4;
-            /* Убрали жесткий max-width: 900px, теперь текст занимает всю ширину с легким ограничением */
-            width: 100%; 
-            max-width: 1100px; 
+            width: 100%;
         }
 
         .highlight { 
             color: var(--accent); 
             font-weight: 600; 
-            position: relative;
-            display: inline-block; /* Чтобы border-bottom работал корректно */
         }
 
-        /* --- 5. CARDS & 3D EFFECT --- */
+        /* --- 5. CARDS --- */
         .card-wrapper {
             perspective: 1000px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 16px;
+            padding: 35px;
+            border-radius: 12px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.1s ease, background 0.3s;
+            transition: transform 0.2s ease, background 0.3s;
         }
 
-        /* Свечение */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 16px;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.05), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .card:hover::before { opacity: 1; }
         .card:hover { 
-            border-color: rgba(255,255,255,0.15); 
             background: var(--bg-card-hover);
+            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
         }
-
-        .card-content { position: relative; z-index: 1; pointer-events: none; }
-        .card-content a, .card-content span { pointer-events: auto; }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
-            flex-wrap: wrap; /* Чтобы на мобильном дата не налезала */
-            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .card-title { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
-        .card-subtitle { color: var(--accent); font-size: 1rem; }
-        .card-date { font-family: 'Inter', monospace; font-size: 0.85rem; color: #555; background: #111; padding: 4px 10px; border-radius: 4px; height: fit-content;}
+        .card-title { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .card-subtitle { color: var(--accent); font-size: 0.95rem; }
         
-        .card ul { margin-left: 20px; margin-top: 25px; color: #ccc; }
-        .card li { margin-bottom: 12px; font-size: 1rem; }
+        .card-date { 
+            font-family: 'Inter', monospace; 
+            font-size: 0.8rem; 
+            color: #71717a; 
+            background: #121212; 
+            padding: 6px 12px; 
+            border-radius: 6px; 
+            border: 1px solid #222;
+        }
+        
+        .card ul { margin-left: 20px; margin-top: 20px; color: #d4d4d8; }
+        .card li { margin-bottom: 10px; font-size: 0.95rem; }
 
-        /* --- 6. BADGES & TAGS --- */
+        /* --- 6. BADGES --- */
         .badge {
             display: inline-block;
-            padding: 8px 16px;
-            border-radius: 100px;
+            padding: 6px 14px;
+            border-radius: 50px;
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            background: rgba(255,255,255,0.05);
-            color: #d4d4d8;
-            margin-right: 8px;
+            background: rgba(255,255,255,0.03);
+            color: #a1a1aa;
+            margin-right: 6px;
             margin-top: 20px;
             border: 1px solid rgba(255,255,255,0.05);
             transition: 0.3s;
         }
-        .badge:hover { border-color: var(--accent); color: #fff; }
+        .badge:hover { border-color: var(--accent); color: #fff; background: rgba(56, 189, 248, 0.1); }
 
-        /* --- 7. TYPOGRAPHY & SECTIONS --- */
+        /* --- 7. HEADINGS --- */
         h2 {
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            color: #555;
-            margin-bottom: 40px;
+            letter-spacing: 3px;
+            color: #52525b;
+            margin-bottom: 35px;
             display: flex;
             align-items: center;
             font-weight: 700;
@@ -234,80 +232,78 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: #1a1a1a;
-            margin-left: 25px;
+            background: #1f1f22;
+            margin-left: 20px;
         }
 
-        /* --- 8. RESEARCH LIST --- */
+        /* --- 8. PUBLICATIONS --- */
         .research-header { margin-bottom: 30px; }
         .research-count {
             display: inline-block;
-            background: #1c1917;
-            color: #e7e5e4;
-            padding: 6px 14px;
+            background: #18181b;
+            color: #e4e4e7;
+            padding: 5px 12px;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 15px;
-            border: 1px solid #333;
+            margin-bottom: 10px;
+            border: 1px solid #27272a;
         }
-        .research-note { font-size: 1rem; color: #777; max-width: 600px; }
 
         .pub-item {
-            padding: 35px;
+            padding: 30px;
             border: 1px solid var(--border);
             border-radius: 12px;
             margin-bottom: 20px;
             transition: 0.3s;
             position: relative;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.01));
+            background: linear-gradient(to right, rgba(255,255,255,0.005), transparent);
         }
         .pub-item:hover { 
-            border-color: #444; 
-            transform: translateX(10px);
-            background: rgba(255,255,255,0.03);
+            border-color: #555; 
+            background: rgba(255,255,255,0.02);
+            transform: translateX(5px);
         }
         
-        .pub-title { font-size: 1.25rem; font-weight: 600; color: #fff; display: block; margin-bottom: 10px; line-height: 1.3; }
-        .pub-meta { font-size: 0.95rem; color: #666; font-style: italic; display: block; margin-bottom: 15px;}
+        .pub-title { font-size: 1.15rem; font-weight: 600; color: #fff; display: block; margin-bottom: 8px; line-height: 1.35; }
+        .pub-meta { font-size: 0.9rem; color: #71717a; font-style: italic; display: block; margin-bottom: 15px;}
         
         .link-arrow { 
             color: var(--accent); 
-            font-weight: 600; 
-            font-size: 0.9rem; 
+            font-weight: 700; 
+            font-size: 0.8rem; 
             display: inline-flex; 
             align-items: center; 
             gap: 6px; 
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.8rem;
         }
         .link-arrow span { transition: 0.3s; }
-        .pub-item:hover .link-arrow span { transform: translateX(5px); }
+        .pub-item:hover .link-arrow span { transform: translateX(4px); }
 
         /* --- 9. BUTTONS --- */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 18px 45px;
+            padding: 16px 40px;
             background: #fff;
             color: #000;
             font-weight: 800;
             border-radius: 100px;
-            font-size: 1rem;
-            margin-right: 20px;
+            font-size: 0.95rem;
+            margin-right: 15px;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #fff;
+            border: 2px solid #fff;
         }
         .btn:hover { 
             transform: scale(1.05); 
-            box-shadow: 0 0 30px rgba(255,255,255,0.2); 
+            box-shadow: 0 0 25px rgba(255,255,255,0.25); 
         }
         .btn-outline { 
             background: transparent; 
             color: #fff; 
-            border: 1px solid #333; 
+            border: 1px solid #3f3f46; 
         }
         .btn-outline:hover { 
             border-color: #fff; 
@@ -315,41 +311,37 @@
             box-shadow: none;
         }
 
-        /* --- 10. ANIMATION UTILS --- */
+        /* --- 10. ANIMATION --- */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* --- 11. RESPONSIVE DESIGN --- */
-        @media (max-width: 1100px) {
+        /* --- 11. MOBILE --- */
+        @media (max-width: 1000px) {
             body { flex-direction: column; font-size: 16px; }
-            
-            /* Фото становится сверху */
             .sidebar { 
                 position: relative; 
                 width: 100%; 
-                height: 60vh; 
+                height: 55vh; 
                 border-right: none;
                 border-bottom: 1px solid #222;
             }
-            .sidebar-img { object-position: center 20%; } /* Коррекция фокуса на лицо */
-            
+            .sidebar-img { object-position: center 25%; }
             .main-content { 
                 width: 100%; 
                 margin-left: 0; 
-                padding: 60px 30px; 
-                gap: 80px; 
+                padding: 60px 25px; 
+                gap: 60px; 
             }
-            
-            .my-name { font-size: 3rem; }
-            .hero-text { font-size: 1.4rem; }
-            .card { padding: 30px; }
+            .my-name { font-size: 2.8rem; }
+            .hero-text { font-size: 1.5rem; width: 100%; }
+            .card { padding: 25px; }
             .btn { width: 100%; margin-bottom: 15px; margin-right: 0; }
         }
     </style>
@@ -370,9 +362,9 @@
             <p class="hero-text">
                 I transform complex <span class="highlight">Computer Science</span> concepts into clear, engaging content. 
                 <br><br>
-                Combining a Master’s degree in CS with expert storytelling for Tech, Crypto, and EdTech sectors.
+                [cite_start]Combining a Master’s degree in CS with expert storytelling for Tech, Crypto, and EdTech sectors[cite: 340, 361].
             </p>
-            <div style="margin-top: 50px;">
+            <div style="margin-top: 45px;">
                 <a href="mailto:vladimirdidok@icloud.com" class="btn">Email Me</a>
                 <a href="https://t.me/VolodymyrDidok" target="_blank" class="btn btn-outline">Telegram</a>
             </div>
@@ -383,70 +375,64 @@
             
             <div class="card-wrapper">
                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">Technical Content Specialist (B2B & Crypto)</div>
-                                <div class="card-subtitle">
-                                    <a href="https://mobidev.biz/trends-and-insights" target="_blank" class="highlight" style="font-weight:400">MobiDev</a> • 
-                                    <a href="https://reverbico.com/" target="_blank" class="highlight" style="font-weight:400">ReVerb</a> • 
-                                    <a href="https://www.fxclearing.com/" target="_blank" class="highlight" style="font-weight:400">FXClearing</a>
-                                </div>
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Technical Content Specialist (B2B & Crypto)</div>
+                            <div class="card-subtitle">
+                                <a href="https://mobidev.biz/trends-and-insights" target="_blank" class="highlight" style="font-weight:400">MobiDev</a> • 
+                                <a href="https://reverbico.com/" target="_blank" class="highlight" style="font-weight:400">ReVerb</a> • 
+                                <a href="https://www.fxclearing.com/" target="_blank" class="highlight" style="font-weight:400">FXClearing</a>
                             </div>
-                            <span class="card-date">2022 — Present</span>
                         </div>
-                        <ul>
-                            <li><strong>Crypto & Web3:</strong> Creating comprehensive guides on Blockchain concepts, trading strategies, and DeFi for FXClearing.</li>
-                            <li><strong>SaaS & Tech:</strong> Writing SEO-optimized long-form articles (2,000+ words) covering AI, Digital Transformation, and Software Development Trends.</li>
-                            <li><strong>Marketing Strategy:</strong> Developing comparison guides and "Top Company" lists to generate B2B leads.</li>
-                        </ul>
-                        <div style="margin-top:25px;">
-                            <span class="badge">SEO Writing</span>
-                            <span class="badge">Whitepapers</span>
-                            <span class="badge">Market Analysis</span>
-                        </div>
+                        <span class="card-date">2022 — Present</span>
+                    </div>
+                    <ul>
+                        [cite_start]<li><strong>Crypto & Web3:</strong> Creating comprehensive guides on Blockchain concepts, trading strategies, and DeFi for FXClearing[cite: 351].</li>
+                        [cite_start]<li><strong>SaaS & Tech:</strong> Writing SEO-optimized long-form articles (2,000+ words) covering AI, Digital Transformation, and Software Development Trends[cite: 349].</li>
+                        [cite_start]<li><strong>Marketing Strategy:</strong> Developing comparison guides and "Top Company" lists to generate B2B leads[cite: 350].</li>
+                    </ul>
+                    <div style="margin-top:25px;">
+                        <span class="badge">SEO Writing</span>
+                        <span class="badge">Whitepapers</span>
+                        <span class="badge">Market Analysis</span>
                     </div>
                 </div>
             </div>
 
             <div class="card-wrapper">
                 <div class="card" style="border-left: 4px solid #38bdf8;">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">EdTech Project Lead</div>
-                                <div class="card-subtitle">UNICEF / UPSHIFT Program</div>
-                            </div>
-                            <span class="card-date">2023</span>
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">EdTech Project Lead</div>
+                            <div class="card-subtitle">UNICEF / UPSHIFT Program</div>
                         </div>
-                        <p style="color: #bbb; margin: 10px 0;">
-                            Managed an educational grant project funded by the German Federal Ministry (KFW).
-                        </p>
-                        <ul>
-                            <li>Developed and launched a full educational course curriculum on AI technologies.</li>
-                            <li>Managed content distribution channels and community engagement.</li>
-                            <li><strong>Achievement:</strong> Winner of the "Innovation in Modern Education" award.</li>
-                        </ul>
+                        <span class="card-date">2023</span>
                     </div>
+                    <p style="color: #bbb; margin: 10px 0; font-size: 0.95rem;">
+                        [cite_start]Managed an educational grant project funded by the German Federal Ministry (KFW)[cite: 420].
+                    </p>
+                    <ul>
+                        [cite_start]<li>Developed and launched a full educational course curriculum on AI technologies[cite: 421].</li>
+                        [cite_start]<li>Managed content distribution channels and community engagement[cite: 421].</li>
+                        [cite_start]<li><strong>Achievement:</strong> Winner of the "Innovation in Modern Education" award[cite: 422].</li>
+                    </ul>
                 </div>
             </div>
 
             <div class="card-wrapper">
                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">Senior Laboratory Assistant</div>
-                                <div class="card-subtitle">Kharkiv National University of Urban Economy</div>
-                            </div>
-                            <span class="card-date">2023 — Present</span>
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Senior Laboratory Assistant</div>
+                            <div class="card-subtitle">Kharkiv National University of Urban Economy</div>
                         </div>
-                        <ul>
-                            <li>Managing digital learning environments (LMS Moodle) and structuring educational content.</li>
-                            <li>Conducting research on LLM integration (GPT-4) into academic processes.</li>
-                            <li>Preparing technical documentation and user guides for digital tools.</li>
-                        </ul>
+                        <span class="card-date">2023 — Present</span>
                     </div>
+                    <ul>
+                        [cite_start]<li>Managing digital learning environments (LMS Moodle) and structuring educational content[cite: 396].</li>
+                        [cite_start]<li>Conducting research on LLM integration (GPT-4) into academic processes[cite: 355].</li>
+                        [cite_start]<li>Preparing technical documentation and user guides for digital tools[cite: 359].</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -456,7 +442,7 @@
             
             <div class="research-header">
                 <span class="research-count">Total Publications: 11+</span>
-                <div class="research-note">
+                <div style="font-size: 0.95rem; color: #777; margin-top: 5px;">
                     Selected works highlighting expertise in Large Language Models, Neural Networks, and Digital Twins.
                 </div>
             </div>
@@ -486,44 +472,42 @@
             </div>
             
             <div style="margin-top: 25px; font-size: 0.85rem; color: #555; font-style: italic;">
-                * Full list of 11 publications is available in the university repository upon request.
+                * [cite_start]Full list of 11 publications is available in the university repository[cite: 4, 327].
             </div>
         </section>
 
         <section class="reveal">
             <h2>Education</h2>
+            
             <div class="card-wrapper">
                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-title">Master's in Computer Science</div>
-                            <span class="card-date">2023 - 2024</span>
-                        </div>
-                        <div style="font-size: 1rem; color: #888;">Kharkiv National University of Urban Economy</div>
+                    <div class="card-header">
+                        <div class="card-title">Master's in Computer Science</div>
+                        <span class="card-date">2023 - 2024</span>
                     </div>
+                    [cite_start]<div style="font-size: 1rem; color: #a1a1aa;">Kharkiv National University of Urban Economy [cite: 361]</div>
                 </div>
             </div>
+            
             <div class="card-wrapper">
                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-header">
-                            <div class="card-title">Bachelor's in Computer Science</div>
-                            <span class="card-date">2019 - 2023</span>
-                        </div>
-                        <div style="font-size: 1rem; color: #888;">Kharkiv National University of Urban Economy</div>
+                    <div class="card-header">
+                        <div class="card-title">Bachelor's in Computer Science</div>
+                        <span class="card-date">2019 - 2023</span>
                     </div>
+                    [cite_start]<div style="font-size: 1rem; color: #a1a1aa;">Kharkiv National University of Urban Economy [cite: 362]</div>
                 </div>
             </div>
         </section>
 
-        <footer style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #222; font-size: 0.9rem; color: #444;">
+        <footer style="margin-top: 80px; padding-top: 40px; border-top: 1px solid #1a1a1a; font-size: 0.9rem; color: #444;">
             <p>&copy; 2025 Volodymyr Didok.</p>
         </footer>
 
     </main>
 
     <script>
-        // 1. SCROLL REVEAL ANIMATION (Smooth entry)
+        // 1. SCROLL REVEAL (Плавное появление блоков)
         const revealElements = document.querySelectorAll('.reveal');
 
         const revealOnScroll = () => {
@@ -539,11 +523,9 @@
         };
 
         window.addEventListener('scroll', revealOnScroll);
-        // Trigger once on load
-        revealOnScroll();
+        revealOnScroll(); // Запуск при загрузке
 
-
-        // 2. 3D TILT EFFECT (Subtle Premium Feel)
+        // 2. 3D TILT EFFECT (Эффект наклона карточек)
         const cards = document.querySelectorAll('.card');
 
         cards.forEach(card => {
@@ -552,17 +534,13 @@
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                // Rotations are small to keep it classy
+                // Углы наклона
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * -1.5; 
                 const rotateY = ((x - centerX) / centerX) * 1.5;
 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.005, 1.005, 1.005)`;
-                
-                // Glow effect coordinates
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
             });
 
             card.addEventListener('mouseleave', () => {
