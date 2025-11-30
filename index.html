@@ -20,7 +20,7 @@
             --accent: #38bdf8; /* Sky Blue */       
             --border: #27272a;
             
-            /* Ширина фото 45% */
+            /* ВЕРНУЛИ 45% (Золотая середина) */
             --sidebar-width: 45%; 
             
             --font-main: 'Inter', sans-serif;
@@ -60,7 +60,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #000; /* Чистый черный */
+            background-color: #000;
             z-index: 10;
             overflow: hidden;
             border-right: 1px solid #111;
@@ -72,20 +72,18 @@
             object-fit: cover;
             object-position: center top;
             
-            /* ВОЗВРАЩАЕМ TEMNY STYLE (Noir Mode) */
-            /* Ч/Б + Контраст + Затемнение */
+            /* NOIR STYLE: Темный, контрастный, дорогой */
+            /* Вернули масштаб к более спокойному (без сильного зума) */
             filter: grayscale(100%) contrast(120%) brightness(75%);
-            
             transition: transform 1.5s ease, filter 0.8s ease;
         }
 
-        /* При наведении - легкий цвет, но все равно сдержанно */
+        /* Легкое оживление при наведении */
         .sidebar:hover .sidebar-img {
             transform: scale(1.03);
             filter: grayscale(20%) contrast(110%) brightness(90%);
         }
 
-        /* Виньетка (градиент) снизу */
         .sidebar::after {
             content: '';
             position: absolute;
@@ -130,7 +128,7 @@
         .main-content {
             width: calc(100% - var(--sidebar-width));
             margin-left: var(--sidebar-width);
-            padding: 100px 6%; 
+            padding: 100px 7%; /* Оптимальные отступы */
             background-color: var(--bg-body);
             display: flex;
             flex-direction: column;
@@ -360,9 +358,10 @@
         
         <section class="reveal active">
             <p class="hero-text">
-                I transform complex <span class="highlight">Computer Science</span> concepts into clear, engaging content. 
+                I transform complex <span class="highlight">Computer Science</span> concepts into clear, engaging content based on 
+                <span class="highlight" style="color:#fff; text-decoration: underline; text-decoration-color: var(--accent);">deep research</span>.
                 <br><br>
-                [cite_start]Combining a Master’s degree in CS with expert storytelling for Tech, Crypto, and EdTech sectors[cite: 340, 361].
+                Combining a Master’s degree in CS with expert storytelling and data analysis for Tech, Crypto, and EdTech sectors.
             </p>
             <div style="margin-top: 45px;">
                 <a href="mailto:vladimirdidok@icloud.com" class="btn">Email Me</a>
@@ -387,14 +386,14 @@
                         <span class="card-date">2022 — Present</span>
                     </div>
                     <ul>
-                        [cite_start]<li><strong>Crypto & Web3:</strong> Creating comprehensive guides on Blockchain concepts, trading strategies, and DeFi for FXClearing[cite: 351].</li>
-                        [cite_start]<li><strong>SaaS & Tech:</strong> Writing SEO-optimized long-form articles (2,000+ words) covering AI, Digital Transformation, and Software Development Trends[cite: 349].</li>
-                        [cite_start]<li><strong>Marketing Strategy:</strong> Developing comparison guides and "Top Company" lists to generate B2B leads[cite: 350].</li>
+                        <li><strong>Deep Research & Analysis:</strong> Conducting thorough desk research, fact-checking, and competitor analysis to ensure technical accuracy before drafting.</li>
+                        <li><strong>Crypto & Web3:</strong> Creating comprehensive guides on Blockchain concepts, trading strategies, and DeFi for FXClearing.</li>
+                        <li><strong>SaaS & Tech:</strong> Writing SEO-optimized long-form articles (2,000+ words) covering AI, Digital Transformation, and Software Development Trends.</li>
                     </ul>
                     <div style="margin-top:25px;">
-                        <span class="badge">SEO Writing</span>
-                        <span class="badge">Whitepapers</span>
-                        <span class="badge">Market Analysis</span>
+                        <span class="badge">Fact-Checking</span>
+                        <span class="badge">Desk Research</span>
+                        <span class="badge">SEO Strategy</span>
                     </div>
                 </div>
             </div>
@@ -409,12 +408,12 @@
                         <span class="card-date">2023</span>
                     </div>
                     <p style="color: #bbb; margin: 10px 0; font-size: 0.95rem;">
-                        [cite_start]Managed an educational grant project funded by the German Federal Ministry (KFW)[cite: 420].
+                        Managed an educational grant project funded by the German Federal Ministry (KFW).
                     </p>
                     <ul>
-                        [cite_start]<li>Developed and launched a full educational course curriculum on AI technologies[cite: 421].</li>
-                        [cite_start]<li>Managed content distribution channels and community engagement[cite: 421].</li>
-                        [cite_start]<li><strong>Achievement:</strong> Winner of the "Innovation in Modern Education" award[cite: 422].</li>
+                        <li>Developed and launched a full educational course curriculum on AI technologies.</li>
+                        <li>Managed content distribution channels and community engagement.</li>
+                        <li><strong>Key Outcomes:</strong> Successfully conducted a series of trainings and published educational materials.</li>
                     </ul>
                 </div>
             </div>
@@ -429,9 +428,9 @@
                         <span class="card-date">2023 — Present</span>
                     </div>
                     <ul>
-                        [cite_start]<li>Managing digital learning environments (LMS Moodle) and structuring educational content[cite: 396].</li>
-                        [cite_start]<li>Conducting research on LLM integration (GPT-4) into academic processes[cite: 355].</li>
-                        [cite_start]<li>Preparing technical documentation and user guides for digital tools[cite: 359].</li>
+                        <li>Managing digital learning environments (LMS Moodle) and structuring educational content.</li>
+                        <li>Conducting research on LLM integration (GPT-4) into academic processes.</li>
+                        <li>Preparing technical documentation and user guides for digital tools.</li>
                     </ul>
                 </div>
             </div>
@@ -472,7 +471,7 @@
             </div>
             
             <div style="margin-top: 25px; font-size: 0.85rem; color: #555; font-style: italic;">
-                * [cite_start]Full list of 11 publications is available in the university repository[cite: 4, 327].
+                * Full list of 11 publications is available in the university repository.
             </div>
         </section>
 
@@ -485,7 +484,7 @@
                         <div class="card-title">Master's in Computer Science</div>
                         <span class="card-date">2023 - 2024</span>
                     </div>
-                    [cite_start]<div style="font-size: 1rem; color: #a1a1aa;">Kharkiv National University of Urban Economy [cite: 361]</div>
+                    <div style="font-size: 1rem; color: #a1a1aa;">Kharkiv National University of Urban Economy</div>
                 </div>
             </div>
             
@@ -495,7 +494,7 @@
                         <div class="card-title">Bachelor's in Computer Science</div>
                         <span class="card-date">2019 - 2023</span>
                     </div>
-                    [cite_start]<div style="font-size: 1rem; color: #a1a1aa;">Kharkiv National University of Urban Economy [cite: 362]</div>
+                    <div style="font-size: 1rem; color: #a1a1aa;">Kharkiv National University of Urban Economy</div>
                 </div>
             </div>
         </section>
