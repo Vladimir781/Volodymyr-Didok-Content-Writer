@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volodymyr Didok | Content Writer</title>
+    <style>
+        /* --- Основные настройки и переменные --- */
+        :root {
+            --bg-color: #0f1115; /* Глубокий темный фон */
+            --card-bg: #161b22;
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff; /* Акцентный синий */
+            --accent-hover: #1f6feb;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* --- Левая панель (Фото) --- */
+        .sidebar {
+            width: 40%;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            background-color: #000;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        /* Место для вашего фото */
+        .sidebar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8; /* Легкая прозрачность для слияния с фоном */
+            
+            /* ФИЛЬТР: Делает фото "в темных тонах" автоматически */
+            filter: grayscale(80%) contrast(110%) brightness(70%);
+            transition: filter 0.5s ease;
+        }
+
+        .sidebar:hover .sidebar-image {
+            filter: grayscale(0%) contrast(100%) brightness(90%); /* Цвет при наведении */
+        }
+
+        /* --- Правая панель (Контент) --- */
+        .main-content {
+            width: 60%;
+            margin-left: 40%; /* Отступ равен ширине сайдбара */
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        /* --- Типографика и секции --- */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #c9d1d9;
+        }
+
+        /* --- Карточки (Опыт и Портфолио) --- */
+        .item-card {
+            margin-bottom: 40px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .date {
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .company {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* --- Секция Портфолио (Сетка) --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        /* --- Навыки (Теги) --- */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+
+        /* --- Контакты --- */
+        .contact-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent);
+            color: #fff;
+        }
+
+        /* --- Адаптивность для мобильных --- */
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: 400px;
+            }
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+                padding: 40px 20px;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="photo.jpg" alt="Volodymyr Didok Portrait" class="sidebar-image" onerror="this.style.display='none'">
+    </aside>
+
+    <main class="main-content">
+        
+        <header>
+            <h1>Volodymyr Didok</h1>
+            <div class="subtitle">Content Writer / Copywriter (Tech, B2B, Crypto)</div>
+            <p>
+                Я специализируюсь на объяснении сложных технических продуктов простым языком. 
+                Пишу SEO-оптимизированные статьи, лендинги и образовательные материалы, 
+                [cite_start]основанные на глубоком исследовании[cite: 6].
+            </p>
+            <div class="contact-links">
+                <a href="mailto:vladimirdidok@icloud.com" class="btn">Email Me</a>
+                <a href="https://t.me/VolodymyrDidok" class="btn">Telegram</a>
+            </div>
+        </header>
+
+        <section>
+            <h2>Selected Portfolio</h2>
+            <div class="portfolio-grid">
+                <a href="https://mobidev.biz/trends-and-insights" target="_blank" class="portfolio-item">
+                    <h3>MobiDev Blog</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                        [cite_start]Long-form articles on software development, digital transformation & AI[cite: 10, 26].
+                    </p>
+                </a>
+                <a href="https://reverbico.com/" target="_blank" class="portfolio-item">
+                    <h3>ReVerb B2B</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                        [cite_start]Marketing content, top company lists & comparison guides[cite: 11, 27].
+                    </p>
+                </a>
+                <a href="https://www.fxclearing.com/" target="_blank" class="portfolio-item">
+                    <h3>FXClearing Crypto</h3>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                        [cite_start]Blockchain concepts, trading basics & guides for beginners[cite: 12, 28].
+                    </p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+            
+            <div class="item-card">
+                <div class="item-header">
+                    <h3>Freelance Content Writer</h3>
+                    <span class="date">2022 - Present</span>
+                </div>
+                <div class="company">Tech, B2B & Crypto (Remote)</div>
+                <p>
+                    Writing long-form articles (1,500-4,000+ words). Collaborating with editors and technical experts. 
+                    [cite_start]Topics: Software Dev, AI, Crypto[cite: 9, 10, 14].
+                </p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-header">
+                    <h3>Academic Writer / Researcher</h3>
+                    <span class="date">2023 - 2024</span>
+                </div>
+                <div class="company">KhNUUE (AI & Education)</div>
+                <p>
+                    Co-authored academic papers on AI in higher education. [cite_start]Structured complex concepts for academic audiences[cite: 15, 16, 17].
+                </p>
+            </div>
+
+            <div class="item-card">
+                <div class="item-header">
+                    <h3>Senior Laboratory Assistant</h3>
+                    <span class="date">Dec 2023 - Present</span>
+                </div>
+                <div class="company">Dept. of Computer Science & IT</div>
+                <p>
+                    [cite_start]Supporting educational projects and preparing documentation on digital tools[cite: 19, 20].
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Skills & Tools</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Long-form Articles</span>
+                <span class="skill-tag">SEO Writing</span>
+                <span class="skill-tag">B2B Marketing</span>
+                <span class="skill-tag">Crypto & Blockchain</span>
+                <span class="skill-tag">Desk Research</span>
+                <span class="skill-tag">Markdown</span>
+                <span class="skill-tag">HTML/CSS Basics</span>
+                <span class="skill-tag">English (C1/C2)</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="item-card">
+                <div class="item-header">
+                    <h3>Master's in Computer Science</h3>
+                    <span class="date">2023 - 2024</span>
+                </div>
+                [cite_start]<div>Kharkiv National University of Urban Economy [cite: 22]</div>
+            </div>
+            <div class="item-card">
+                <div class="item-header">
+                    <h3>Bachelor's in Computer Science</h3>
+                    <span class="date">2019 - 2023</span>
+                </div>
+                [cite_start]<div>Kharkiv National University of Urban Economy [cite: 23]</div>
+            </div>
+        </section>
+
+        <footer>
+            <p style="font-size: 0.8rem; opacity: 0.5;">
+                &copy; 2025 Volodymyr Didok. Based on provided CV.
+            </p>
+        </footer>
+
+    </main>
+</body>
+</html>
